@@ -1,11 +1,12 @@
 import numpy as np
 import pandas as pd
 
-m2_plus_back = pd.read_excel("M2+追回/M2+追回.xlsx")
-group_all = pd.read_excel("M2+追回/区域风控跟踪表.xlsx")
 
-m2_plus_back = pd.read_excel("M2+追回/M2+追回.xlsx")
-group_all = pd.read_excel("M2+追回/区域风控跟踪表.xlsx")
+m2_plus_back = pd.read_excel("M2+追回/M2+追回.xlsx",dtype={'SA工号':"O",'贷款编号':'O'})
+#m2_plus_back[['SA工号']] = m2_plus_back[['SA工号']].astype('O')
+group_all = pd.read_excel("M2+追回/区域风控跟踪表.xlsx",dtype={'SA工号':'O','贷款编号':'O'})
+#group_all[['SA工号']] = group_all[['SA工号']].astype('O')
+
 
 m2_plus_back1 = pd.merge(m2_plus_back,group_all,on="贷款编号",how="left",)
 m2_plus_back1= m2_plus_back1[["贷款编号","SA工号_x","SA姓名_x","拿绩效区助工号","拿绩效区助姓名",
@@ -34,5 +35,8 @@ for i in range(len(m2_plus_back1)):
         pass
 
 #数据输出保存为CSV格式的数据
-m2_plus_back1.to_csv("输出/区域经理单笔退还.csv")
+m2_plus_back1.to_excel("输出/区域经理单笔退还.xlsx")
+
+
+
 
