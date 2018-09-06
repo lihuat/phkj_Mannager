@@ -1,7 +1,9 @@
 import numpy as np
 import pandas as pd
+import datetime
 
-
+print("开始计算")
+starttime = datetime.datetime.now()
 m2_plus_back = pd.read_excel("M2+追回/M2+追回.xlsx",dtype={'SA工号':"O",'贷款编号':'O'})
 #m2_plus_back[['SA工号']] = m2_plus_back[['SA工号']].astype('O')
 group_all = pd.read_excel("M2+追回/区域风控跟踪表.xlsx",dtype={'SA工号':'O','贷款编号':'O'})
@@ -34,9 +36,9 @@ for i in range(len(m2_plus_back1)):
     else:
         pass
 
+print("计算完成！正在保存文件...")
 #数据输出保存为CSV格式的数据
 m2_plus_back1.to_excel("输出/区域经理单笔退还.xlsx")
-
-
-
+endtime = datetime.datetime.now()
+print("用时：%d秒"%(endtime-starttime).seconds)
 

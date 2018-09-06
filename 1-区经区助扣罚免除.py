@@ -2,10 +2,16 @@ import pandas as pd
 import numpy as np
 from tqdm import tqdm
 import re
-"""
-在'首次M3明细/销售人员清单'中剔除工号为:25040010 犹敦信 离职
+import datetime
 
 """
+
+
+"""
+
+print("注意事项：\n销售人员清单：当月30日/31日")
+print("计算开始")
+starttime = datetime.datetime.now()
 
 m2 = pd.read_excel("首次M2逾期率/首次M2逾期率.xlsx",dtype={"SA工号":'O'})
 m2 = m2[['SA工号','SA姓名','首次M2单量','首次M2注册数']]
@@ -81,7 +87,8 @@ for i in range(len(df1)):
     else:
         df1.loc[i,"是否免扣"] = "扣罚"
 
-df1.rename(columns = {'区经工号_x':'区经工号'})
-
+df1 = df1.rename(index=str,columns = {'区经工号_x':'区经工号'})
+print("计算完成，正在保存文件...")
 df1.to_excel("输出/区经区助扣罚免除.xlsx")
-
+endtime = datetime.datetime.now()
+print("用时：%d秒"%(endtime-starttime).seconds)
