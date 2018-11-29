@@ -19,6 +19,7 @@ m2 = m2[['SA工号','SA姓名','首次M2单量','首次M2注册数']]
 people = pd.read_excel("首次M3明细/销售人员清单.xlsx",dtype={'工号':'O'})
 people = people[['工号','姓名','在岗状态','区域经理','高区经理','城市经理','角色']]
 people = people.rename(columns={'工号':'SA工号'})
+people_1 = people.copy()
 
 m2 = pd.merge(m2,people,on="SA工号",how="left",)
 m2 = m2.loc[m2["在岗状态"]=="在职"]
@@ -46,7 +47,6 @@ m2['匹配'] = 0
 for i in tqdm(range(len(m2))):
     m2.loc[i,'匹配'] = m2.loc[i,'高区经理']+m2.loc[i,'区经姓名']
 
-people_1 = people.copy()
 
 a1 = people_1.loc[people_1['角色']== "区域经理助理"]
 a2 = people_1.loc[people_1['角色']== "区域经理"]
